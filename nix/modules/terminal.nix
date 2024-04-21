@@ -1,6 +1,7 @@
 { pkgs, lib, ... }:
 {
   environment.systemPackages = with pkgs; [
+     alejandra
      neovim
      git
      tmux
