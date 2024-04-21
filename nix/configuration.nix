@@ -129,6 +129,16 @@
     };
   };
 
+  nixpkgs = {
+    config = {
+      packageOverrides = pkgs: {
+        unstable = import <nixos-unstable> {
+          config = config.nixpkgs.config;
+        };
+      };
+    };
+  };
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

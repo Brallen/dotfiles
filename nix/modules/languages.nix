@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     erlang
-    gleam
+    unstable.gleam
     gcc
     nodejs
     rustup
