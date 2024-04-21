@@ -1,16 +1,19 @@
-{ pkgs, lib, ... }:
 {
+  pkgs,
+  lib,
+  ...
+}: {
   environment.systemPackages = with pkgs; [
-     alejandra
-     neovim
-     git
-     tmux
-     ripgrep
-     lazygit
-     stow
-     starship
-     zsh
-     neofetch
+    alejandra
+    git
+    lazygit
+    neofetch
+    neovim
+    ripgrep
+    stow
+    starship
+    tmux
+    zsh
   ];
 
   programs.zsh.enable = true;
