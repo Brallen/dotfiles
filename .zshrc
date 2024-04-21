@@ -14,3 +14,8 @@ gbda() {
     git branch | grep -v "master" | xargs git branch -d
   fi
 }
+
+# Call into the NixOS rebuild switch faster
+nrs() {
+  ~/.dotfiles/nix/nixos-rebuild.sh
+}
