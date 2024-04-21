@@ -39,10 +39,20 @@
     LC_TELEPHONE = "en_US.UTF-8";
     LC_TIME = "en_US.UTF-8";
   };
+  
+  fonts = {
+      enableDefaultPackages = true;
+      packages = with pkgs; [
+        (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+      ];
 
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-  ];
+      fontconfig = {
+          defaultFonts = {
+              sansSerif = ["JetBrainsMono"];
+              monospace = ["JetBrainsMono"];
+            };
+        };
+    };
 
   # Nvidia driver BS
   hardware.opengl = {
