@@ -9,6 +9,7 @@
      stow
      starship
      zsh
+     neofetch
   ];
 
   programs.zsh.enable = true;
