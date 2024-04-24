@@ -14,13 +14,16 @@
     stow
     starship
     tmux
+    wezterm
     zsh
   ];
 
-  programs.zsh.enable = true;
+  programs = {
+    zsh.enable = true;
 
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+    };
   };
 }
