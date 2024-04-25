@@ -14,7 +14,6 @@
     stow
     starship
     tmux
-    wezterm
     zsh
   ];
 
