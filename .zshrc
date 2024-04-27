@@ -2,6 +2,7 @@ eval "$(starship init zsh)"
 alias nv="nvim"
 
 export PATH="$PATH:/opt/nvim-linux64/bin"
+export PATH="$PATH:$HOME/.cargo/bin"
 export NVM_DIR="$HOME/.nvm"
 
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

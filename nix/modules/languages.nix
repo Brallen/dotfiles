@@ -4,7 +4,6 @@
     unstable.gleam
     gcc
     nodejs
-    rustup
     yarn
   ];
 }
