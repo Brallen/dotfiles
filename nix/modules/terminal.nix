@@ -7,6 +7,7 @@
     alejandra
     fd
     git
+    helix
     lazygit
     neofetch
     neovim
