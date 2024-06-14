@@ -8,7 +8,7 @@
 }: {
   imports = [
     # Include the results of the hardware scan.
-    /etc/nixos/hardware-configuration.nix
+    ./machines/ramp-rat/hardware-configuration.nix
     ./modules/desktop.nix
     ./modules/languages.nix
     ./modules/terminal.nix
@@ -134,7 +134,7 @@
   nixpkgs = {
     config = {
       packageOverrides = pkgs: {
-        unstable = import <nixos-unstable> {
+        unstable = pkgs.unstable {
           config = config.nixpkgs.config;
         };
       };
