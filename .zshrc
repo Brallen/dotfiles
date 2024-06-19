@@ -20,3 +20,8 @@ gbda() {
 nrs() {
   ~/.dotfiles/nix/nixos-rebuild.sh
 }
+
+# Go into the nix develop shell quick and with zsh as the shell
+nd() {
+  nix develop -c zsh
+}
