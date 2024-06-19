@@ -5,11 +5,11 @@
 }: {
   environment.systemPackages = with pkgs; [
     alejandra
+    bat
     fd
     git
     helix
     lazygit
-    neofetch
     neovim
     ripgrep
     stow
