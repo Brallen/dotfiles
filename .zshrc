@@ -21,6 +21,11 @@ nrs() {
   ~/.dotfiles/nix/nixos-rebuild.sh
 }
 
+# Call into the NixOS update with flake faster
+nfu() {
+  ~/.dotfiles/nix/nixos-flake-update.sh
+}
+
 # Go into the nix develop shell quick and with zsh as the shell
 nd() {
   nix develop -c zsh

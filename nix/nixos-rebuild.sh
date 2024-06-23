@@ -46,4 +46,3 @@ popd
 
 # Notify all OK!
 echo 'NixOS Rebuilt OK!'
-# notify-send -e "NixOS Rebuilt OK!" --icon=software-update-available
