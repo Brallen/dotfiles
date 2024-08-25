@@ -10,7 +10,7 @@
     git
     helix
     lazygit
-    neovim
+    unstable.neovim
     ripgrep
     stow
     starship
