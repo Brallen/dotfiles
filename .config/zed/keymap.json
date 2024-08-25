@@ -1,0 +1,51 @@
+[
+  {
+    "context": "Editor && VimControl && !VimWaiting && !menu",
+    "bindings": {
+      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
+      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
+      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
+      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "shift-l": "pane::ActivateNextItem",
+      "shift-h": "pane::ActivatePrevItem",
+      "space e": "pane::RevealInProjectPanel",
+      "shift-k": "editor::Hover",
+      "?": "pane::DeploySearch",
+      "/": "buffer_search::Deploy",
+      "] h": "editor::GoToHunk",
+      "[ h": "editor::GoToPrevHunk",
+      "space g b": "editor::ToggleGitBlame",
+      "space b d": "pane::CloseActiveItem",
+      "g r": "editor::FindAllReferences"
+    }
+  },
+  {
+    "context": "vim_mode == visual",
+    "bindings": {
+      "shift-s": [
+        "vim::PushOperator",
+        {
+          "AddSurrounds": {}
+        }
+      ]
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      // Fake ctrl-h since terminal doesn't support the PaneInDirection
+      // I have the terminal on the right always anyways
+      "ctrl-h": "terminal_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "n": "project_panel::NewFile",
+      "r": "project_panel::Rename",
+      "shift-y": "project_panel::CopyRelativePath",
+      // Fake ctrl movement
+      "ctrl-l": "project_panel::ToggleFocus"
+    }
+  }
+]
