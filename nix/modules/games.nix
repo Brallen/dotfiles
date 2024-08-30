@@ -5,6 +5,6 @@
 }: {
   environment.systemPackages = with pkgs; [
     pkgs.lunar-client # Minecraft
-    pkgs.jdk # Java needed for Minecraft
+    pkgs.jdk # Java for Minecraft
   ];
 }
