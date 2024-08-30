@@ -8,6 +8,8 @@
   environment.systemPackages = with pkgs; [
     discord
     steam
+    lunar-client # Minecraft
+    jdk # Java for Minecraft
   ];
 
   programs.steam = {
