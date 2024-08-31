@@ -10,6 +10,7 @@
     steam
     lunar-client # Minecraft
     jdk # Java for Minecraft
+    keymapp
   ];
 
   programs.steam = {
