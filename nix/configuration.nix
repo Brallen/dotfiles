@@ -142,7 +142,7 @@
   };
 
   # Enable Tailscale VPN
-  services.tailscale.enable = true;
+  services.tailscale.enable = false;
   systemd.services.tailscale-autoconnect = {
     description = "Automatic connection to Tailscale";
 
