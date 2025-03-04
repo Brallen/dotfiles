@@ -7,6 +7,7 @@
     alejandra
     bat
     fd
+    unstable.ghostty
     git
     helix
     lazygit
