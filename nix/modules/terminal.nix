@@ -9,7 +9,6 @@
     fd
     unstable.ghostty
     git
-    helix
     lazygit
     unstable.neovim
     ripgrep
