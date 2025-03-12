@@ -7,13 +7,13 @@
       "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-j": "workspace::ActivatePaneDown",
       "shift-l": "pane::ActivateNextItem",
-      "shift-h": "pane::ActivatePrevItem",
+      "shift-h": "pane::ActivatePreviousItem",
       "space e": "pane::RevealInProjectPanel",
       "shift-k": "editor::Hover",
       "?": "pane::DeploySearch",
       "/": "buffer_search::Deploy",
       "] h": "editor::GoToHunk",
-      "[ h": "editor::GoToPrevHunk",
+      "[ h": "editor::GoToPreviousHunk",
       "space g b": "editor::ToggleGitBlame",
       "space b d": "pane::CloseActiveItem",
       "g r": "editor::FindAllReferences"
@@ -47,7 +47,7 @@
     "bindings": {
       "n": "project_panel::NewFile",
       "r": "project_panel::Rename",
-      "shift-y": "project_panel::CopyRelativePath",
+      "shift-y": "workspace::CopyRelativePath",
       // Fake ctrl movement
       "ctrl-l": "project_panel::ToggleFocus"
     }
