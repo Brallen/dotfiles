@@ -1,0 +1,23 @@
+[[language]]
+name = "typescript"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+
+[[language]]
+name = "tsx"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+
+[language-server]
+static-ls = { command = "static-ls" }
+
+[[language]]
+name = "haskell"
+scope = "source.haskell"
+injection-regex = "haskell"
+file-types = ["hs", "hs-boot"]
+roots = ["Setup.hs", "stack.yaml", "cabal.project"]
+comment-token = "--"
+block-comment-tokens = { start = "{-", end = "-}" }
+language-servers = ["static-ls"]
+indent = { tab-width = 2, unit = "  " }

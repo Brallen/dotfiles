@@ -44,9 +44,7 @@ return {
               cond = function()
                 return package.loaded["noice"] and require("noice").api.status.mode.has()
               end,
-              color = function()
-                return { fg = Snacks.util.color("Constant") }
-              end,
+              color = LazyVim.ui.fg("Constant"),
             },
             {
               function()
@@ -55,16 +53,12 @@ return {
               cond = function()
                 return package.loaded["dap"] and require("dap").status() ~= ""
               end,
-              color = function()
-                return { fg = Snacks.util.color("Debug") }
-              end,
+              color = LazyVim.ui.fg("Debug"),
             },
             {
               require("lazy.status").updates,
               cond = require("lazy.status").has_updates,
-              color = function()
-                return { fg = Snacks.util.color("Special") }
-              end,
+              color = LazyVim.ui.fg("Special"),
             },
             {
               "diff",
@@ -91,7 +85,7 @@ return {
           },
 
           lualine_z = {
-            { "location", padding = { left = 1, right = 1 } },
+            { "location", padding = { left = 0, right = 1 } },
           },
         },
         extensions = { "neo-tree", "lazy" },

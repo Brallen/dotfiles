@@ -1,3 +1,4 @@
 nix
 .git
 .gitignore
+nvim.bak

@@ -2,10 +2,10 @@
   {
     "context": "Editor && VimControl && !VimWaiting && !menu",
     "bindings": {
-      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
       "shift-l": "pane::ActivateNextItem",
       "shift-h": "pane::ActivatePrevItem",
       "space e": "pane::RevealInProjectPanel",
@@ -20,14 +20,18 @@
     }
   },
   {
+    "context": "VimControl && !menu && vim_mode != operator",
+    "bindings": {
+      "W": "vim::NextSubwordStart",
+      "B": "vim::PreviousSubwordStart",
+      "E": "vim::NextSubwordEnd",
+      "g E": "vim::PreviousSubwordEnd"
+    }
+  },
+  {
     "context": "vim_mode == visual",
     "bindings": {
-      "shift-s": [
-        "vim::PushOperator",
-        {
-          "AddSurrounds": {}
-        }
-      ]
+      "shift-s": ["vim::PushAddSurrounds", {}]
     }
   },
   {
