@@ -80,6 +80,7 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
   services.xserver.displayManager.defaultSession = "gnome";
+  services.gnome.gnome-browser-connector.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -113,9 +114,6 @@
     description = "Bart";
     shell = pkgs.zsh;
     extraGroups = ["networkmanager" "wheel"];
-    packages = with pkgs; [
-      firefox
-    ];
   };
 
   nix = {
