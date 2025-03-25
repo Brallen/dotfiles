@@ -4,7 +4,6 @@
   ...
 }: {
   environment.systemPackages = with pkgs; [
-    firefox
     gnome-browser-connector
     gnome.gnome-tweaks
     tailscale
