@@ -72,6 +72,11 @@ mgw() {
   make ghciwatch watch_tags=1 watch_clear=1
 }
 
+# Run local BE server with temporal
+mrt() {
+  TEMPORAL_ENABLED=true TEMPORAL_WORKER_ENABLED=true make run
+}
+
 # Source the FE .env so I don't keep manually doing it
 if [[ -f "$HOME/Documents/repos/mercury-web/.envrc" ]]; then
   . "$HOME/Documents/repos/mercury-web/.envrc"

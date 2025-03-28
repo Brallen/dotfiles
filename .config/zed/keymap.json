@@ -14,7 +14,7 @@
       "/": "buffer_search::Deploy",
       "] h": "editor::GoToHunk",
       "[ h": "editor::GoToPreviousHunk",
-      "space g b": "editor::ToggleGitBlame",
+      "space g b": "git::Blame",
       "space b d": "pane::CloseActiveItem",
       "g r": "editor::FindAllReferences"
     }
