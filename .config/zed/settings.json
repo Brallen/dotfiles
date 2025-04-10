@@ -1,5 +1,14 @@
 {
-  "show_inline_completions": false,
+  "edit_predictions": {
+    "mode": "subtle",
+    "copilot": {
+      "proxy": null,
+      "proxy_no_verify": null
+    },
+    "enabled_in_assistant": false
+  },
+  "show_edit_predictions": true,
+  "show_edit_predictions": false,
   "assistant": {
     "default_model": {
       "provider": "copilot_chat",
@@ -60,7 +69,14 @@
     //     }
     //   }
     // }
+    "Haskell": {
+      "show_edit_predictions": true
+    },
+    "CSS": {
+      "show_edit_predictions": true
+    },
     "TypeScript": {
+      "show_edit_predictions": true,
       "preferred_line_length": 85,
       // "soft_wrap": "preferred_line_length"
       "code_actions_on_format": {
@@ -68,6 +84,7 @@
       }
     },
     "TSX": {
+      "show_edit_predictions": true,
       "preferred_line_length": 85,
       // "soft_wrap": "preferred_line_length"
       "code_actions_on_format": {
