@@ -59,7 +59,7 @@
   # Nvidia driver BS
   hardware.opengl = {
     enable = true;
-    driSupport = true;
+    #   driSupport = true;
     driSupport32Bit = true;
   };
 
@@ -70,7 +70,7 @@
     powerManagement.finegrained = false;
     open = false;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
   };
 
   # Enable the X11 windowing system.
@@ -92,7 +92,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
+  # sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
