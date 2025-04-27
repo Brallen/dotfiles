@@ -5,7 +5,7 @@
 }: {
   environment.systemPackages = with pkgs; [
     gnome-browser-connector
-    gnome-tweaks
+    gnome.gnome-tweaks
     tailscale
   ];
 
