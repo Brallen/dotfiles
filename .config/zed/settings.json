@@ -9,9 +9,10 @@
   },
   "show_edit_predictions": true,
   "assistant": {
+    "default_profile": "write",
     "default_model": {
       "provider": "copilot_chat",
-      "model": "gpt-4"
+      "model": "claude-3-7-sonnet"
     },
     "version": "2"
   },
@@ -51,13 +52,13 @@
           "importModuleSpecifierPreference": "non-relative"
         }
       }
-    },
-    "hls": {
-      "binary": {
-        "path": "static-ls",
-        "arguments": ["--experimentalFeatures"]
-      }
     }
+    // "hls": {
+    //   "binary": {
+    //     "path": "static-ls",
+    //     "arguments": ["--experimentalFeatures"]
+    //   }
+    // }
   },
   "language_servers": [
     "...",
