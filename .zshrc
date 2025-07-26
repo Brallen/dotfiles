@@ -4,6 +4,7 @@ export EDITOR=nvim
 alias ls='ls -G'
 alias vim=nvim
 alias nv=nvim
+alias bat=batcat
 eval "$(starship init zsh)"
 
 export PATH="$PATH:/opt/nvim-linux64/bin"
@@ -37,3 +38,10 @@ gbda() {
   fi
 }
 
+# use bat to pretty print git diffs
+batdiff() {
+  git diff --name-only --relative --diff-filter=d -z | xargs --null batcat --diff
+}
+
+export PATH=$HOME/.local/bin:$PATH
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
