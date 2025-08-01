@@ -8,13 +8,13 @@
     "enabled_in_assistant": false
   },
   "show_edit_predictions": true,
-  "assistant": {
-    "default_profile": "write",
+  "agent": {
+    "always_allow_tool_actions": true,
+    "default_profile": "ask",
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "claude-3-7-sonnet"
-    },
-    "version": "2"
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-thinking-latest"
+    }
   },
   "theme": "Everforest Dark",
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
@@ -40,16 +40,20 @@
   },
   "lsp": {
     "typescript-language-server": {
-      "initialization_options": {
-        "preferences": {
-          "importModuleSpecifierPreference": "non-relative"
+      "settings": {
+        "typescript": {
+          "preferences": {
+            "importModuleSpecifier": "non-relative"
+          }
         }
       }
     },
     "vtsls": {
-      "initialization_options": {
-        "preferences": {
-          "importModuleSpecifierPreference": "non-relative"
+      "settings": {
+        "typescript": {
+          "preferences": {
+            "importModuleSpecifier": "non-relative"
+          }
         }
       }
     }
