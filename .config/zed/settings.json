@@ -5,18 +5,17 @@
       "proxy": null,
       "proxy_no_verify": null
     },
-    "enabled_in_assistant": false
+    "enabled_in_text_threads": false
   },
   "show_edit_predictions": true,
   "agent": {
-    "always_allow_tool_actions": true,
     "default_profile": "ask",
     "default_model": {
-      "provider": "anthropic",
-      "model": "claude-sonnet-4-thinking-latest"
+      "provider": "copilot_chat",
+      "model": "claude-3.7-sonnet"
     }
   },
-  "theme": "Everforest Dark",
+  "theme": "Everforest Dark Hard",
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "buffer_font_size": 14,
   "tab_size": 2,

@@ -31,7 +31,7 @@
   {
     "context": "vim_mode == visual",
     "bindings": {
-      "shift-s": ["vim::PushAddSurrounds", {}]
+      "shift-s": "vim::PushAddSurrounds"
     }
   },
   {
@@ -50,6 +50,19 @@
       "shift-y": "workspace::CopyRelativePath",
       // Fake ctrl movement
       "ctrl-l": "project_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "GitPanel",
+    "bindings": {
+      // Fake ctrl movement
+      "ctrl-l": "project_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "GitPanel && not_editing",
+    "bindings": {
+      "space e": "pane::RevealInProjectPanel"
     }
   }
 ]
