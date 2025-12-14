@@ -35,11 +35,13 @@ echo "NixOS Rebuilding..."
 # sudo nixos-rebuild switch -I nixos-config=./configuration.nix &>nixos-switch.log || (cat nixos-switch.log | grep --color error && exit 1)
 sudo nixos-rebuild switch --flake . &>nixos-switch.log || (cat nixos-switch.log | grep --color error && exit 1)
 
-# Get current generation metadata
-current=$(nixos-rebuild list-generations | grep current)
-
-# Commit all changes with the generation metadata
-git commit -am "$current"
+# Comment this out for now since current isnt working
+# # Get current generation metadata
+# current=$(nixos-rebuild list-generations | grep current)
+#
+# # Commit all changes with the generation metadata
+# git commit -am "$current"
+echo "Don't forget to commit your changes!"
 
 # Back to where you were
 popd

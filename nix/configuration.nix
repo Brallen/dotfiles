@@ -19,9 +19,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "ramp-rat";
-
   # Enable networking
+  networking.hostName = "ramp-rat";
   networking.networkmanager.enable = true;
   hardware.bluetooth.enable = true;
   programs.ssh.startAgent = true;
