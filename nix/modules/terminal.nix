@@ -13,8 +13,9 @@
     lazygit
     unstable.neovim
     ripgrep
-    stow
     starship
+    stow
+    stylua
     tmux
     zsh
   ];
