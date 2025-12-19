@@ -2,5 +2,7 @@ theme = Everforest Dark Hard
 window-padding-x = 7
 window-padding-balance = true
 window-padding-color = extend
+window-width = 120
+window-height = 32
 font-family = "JetBrainsMono Nerd Font"
 
