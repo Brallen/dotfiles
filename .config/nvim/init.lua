@@ -126,6 +126,35 @@ require('lazy').setup({
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
+      on_attach = function(buffer)
+        local gs = package.loaded.gitsigns
+
+        local function map(mode, l, r, desc)
+          vim.keymap.set(mode, l, r, { buffer = buffer, desc = desc, silent = true })
+        end
+
+        -- stylua: ignore start
+        map("n", "]h", function()
+          if vim.wo.diff then
+            vim.cmd.normal({ "]c", bang = true })
+          else
+            gs.nav_hunk("next")
+          end
+        end, "Next Hunk")
+        map("n", "[h", function()
+          if vim.wo.diff then
+            vim.cmd.normal({ "[c", bang = true })
+          else
+            gs.nav_hunk("prev")
+          end
+        end, "Prev Hunk")
+        map("n", "]H", function() gs.nav_hunk("last") end, "Last Hunk")
+        map("n", "[H", function() gs.nav_hunk("first") end, "First Hunk")
+        map("n", "<leader>gb", function() gs.blame_line({ full = true }) end, "Blame Line")
+        map("n", "<leader>gB", function() gs.blame() end, "Blame Buffer")
+        map("n", "<leader>gd", gs.diffthis, "Diff This")
+        map("n", "<leader>gD", function() gs.diffthis("~") end, "Diff This ~")
+      end,
     },
   },
 
@@ -333,29 +362,29 @@ require('lazy').setup({
           end
 
           -- Rename the variable under your cursor.
-          map('grn', vim.lsp.buf.rename, '[R]e[n]ame')
+          map('gm', vim.lsp.buf.rename, '[R]ena[m]e')
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map('gra', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
+          map('ga', vim.lsp.buf.code_action, '[G]oto Code [A]ction', { 'n', 'x' })
 
           -- Find references for the word under your cursor.
-          map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
+          map('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
           -- Jump to the implementation of the word under your cursor.
-          map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
+          map('gi', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
 
           -- Jump to the definition of the word under your cursor.
           --  To jump back, press <C-t>.
-          map('grd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
+          map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
 
-          -- WARN: This is not Goto Definition, this is Goto Declaration.
-          --  For example, in C this would take you to the header.
-          map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+          map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
           map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
+
+          map('K', vim.lsp.buf.hover, 'Hover')
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
@@ -364,7 +393,7 @@ require('lazy').setup({
           -- Jump to the type of the word under your cursor.
           --  Useful when you're not sure what type a variable is and you want to see
           --  the definition of its *type*, not where it was *defined*.
-          map('grt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
+          map('gt', require('telescope.builtin').lsp_type_definitions, '[G]oto [T]ype Definition')
 
           -- This function resolves a difference between neovim nightly (version 0.11) and stable (version 0.10)
           ---@param client vim.lsp.Client
@@ -448,39 +477,11 @@ require('lazy').setup({
         },
       }
 
-      -- LSP servers and clients are able to communicate to each other what features they support.
-      --  By default, Neovim doesn't support everything that is in the LSP specification.
-      --  When you add blink.cmp, luasnip, etc. Neovim now has *more* capabilities.
-      --  So, we create new capabilities with blink.cmp, and then broadcast that to the servers.
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
-      -- Enable the following language servers
-      --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
-      --
-      --  Add any additional override configuration in the following tables. Available keys are:
-      --  - cmd (table): Override the default command used to start the server
-      --  - filetypes (table): Override the default list of associated filetypes for the server
-      --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
-      --  - settings (table): Override the default settings passed when initializing the server.
-      --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
-        -- gopls = {},
-        -- pyright = {},
-        -- rust_analyzer = {},
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
-        -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
-        --
-
         lua_ls = {
-          -- cmd = { ... },
-          -- filetypes = { ... },
-          -- capabilities = {},
+          filetypes = { 'lua' },
           settings = {
             Lua = {
               completion = {
@@ -490,12 +491,28 @@ require('lazy').setup({
             },
           },
         },
-        hls = function()
-          return true
-        end,
+        hls = {
+          filetypes = { 'haskell', 'lhaskell' },
+        },
       }
 
-      local ensure_installed = vim.tbl_keys(servers or {})
+      for server_name, server_config in pairs(servers) do
+        local filetypes = server_config.filetypes or {}
+        server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
+
+        -- Register the LSP config
+        vim.lsp.config[server_name] = server_config
+
+        -- Enable for each filetype
+        if #filetypes > 0 then
+          vim.api.nvim_create_autocmd('FileType', {
+            pattern = filetypes,
+            callback = function(args)
+              vim.lsp.enable(server_name, args.buf)
+            end,
+          })
+        end
+      end
     end,
   },
   { 'neovimhaskell/haskell-vim' },
@@ -718,13 +735,80 @@ require('lazy').setup({
     },
     lazy = false,
     keys = {
-      { '<leader>e', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+      {
+        '<leader>fE',
+        function()
+          require('neo-tree.command').execute { toggle = true, dir = '~' }
+        end,
+        desc = 'Explorer NeoTree (Root Dir)',
+      },
+      {
+        '<leader>fe',
+        function()
+          require('neo-tree.command').execute { toggle = true, dir = vim.uv.cwd() }
+        end,
+        desc = 'Explorer NeoTree (cwd)',
+      },
+      { '<leader>e', '<leader>fe', desc = 'Explorer NeoTree (Root Dir)', remap = true },
+      { '<leader>E', '<leader>fE', desc = 'Explorer NeoTree (cwd)', remap = true },
+      {
+        '<leader>ge',
+        function()
+          require('neo-tree.command').execute { source = 'git_status', toggle = true }
+        end,
+        desc = 'Git Explorer',
+      },
+      {
+        '<leader>be',
+        function()
+          require('neo-tree.command').execute { source = 'buffers', toggle = true }
+        end,
+        desc = 'Buffer Explorer',
+      },
     },
+
     opts = {
+      sources = { 'filesystem', 'buffers', 'git_status' },
+      open_files_do_not_replace_types = { 'terminal', 'Trouble', 'trouble', 'qf', 'Outline' },
       filesystem = {
+        bind_to_cwd = false,
+        follow_current_file = { enabled = true },
+        filtered_items = {
+          visible = true,
+        },
         window = {
           mappings = {
             ['<leader>e'] = 'close_window',
+          },
+        },
+      },
+      window = {
+        mappings = {
+          ['l'] = 'open',
+          ['h'] = 'close_node',
+          ['<space>'] = 'none',
+          ['Y'] = {
+            function(state)
+              local node = state.tree:get_node()
+              local path = node:get_id()
+              vim.fn.setreg('+', path, 'c')
+            end,
+            desc = 'Copy Path to Clipboard',
+          },
+          ['P'] = { 'toggle_preview', config = { use_float = false } },
+        },
+      },
+      default_component_configs = {
+        indent = {
+          with_expanders = true, -- if nil and file nesting is enabled, will enable expanders
+          expander_collapsed = '',
+          expander_expanded = '',
+          expander_highlight = 'NeoTreeExpander',
+        },
+        git_status = {
+          symbols = {
+            unstaged = '󰄱',
+            staged = '󰱒',
           },
         },
       },
