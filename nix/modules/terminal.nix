@@ -11,6 +11,7 @@
     unstable.ghostty
     git
     lazygit
+    lua-language-server
     unstable.neovim
     ripgrep
     starship
