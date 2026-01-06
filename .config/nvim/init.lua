@@ -1,6 +1,3 @@
--- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
@@ -690,9 +687,6 @@ require('lazy').setup({
       statusline.section_location = function()
         return '%2l:%-2v'
       end
-
-      -- ... and there is more!
-      --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
   { -- Highlight, edit, and navigate code
@@ -755,7 +749,29 @@ require('lazy').setup({
         desc = 'Buffer Explorer',
       },
     },
+    config = function(_, opts)
+      require('neo-tree').setup(opts)
 
+      -- Disable mini.statusline in Neo-tree buffer
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = 'neo-tree',
+        callback = function(args)
+          vim.b[args.buf].ministatusline_disable = true
+        end,
+      })
+
+      -- Auto-close Neo-tree if it's the only buffer left
+      vim.api.nvim_create_autocmd('BufEnter', {
+        group = vim.api.nvim_create_augroup('NeoTreeClose', { clear = true }),
+        pattern = '*',
+        callback = function()
+          local layout = vim.api.nvim_call_function('winlayout', {})
+          if layout[1] == 'leaf' and vim.bo[vim.api.nvim_win_get_buf(layout[2])].filetype == 'neo-tree' and layout[3] == nil then
+            vim.cmd 'quit'
+          end
+        end,
+      })
+    end,
     opts = {
       sources = { 'filesystem', 'buffers', 'git_status' },
       open_files_do_not_replace_types = { 'terminal', 'Trouble', 'trouble', 'qf', 'Outline' },
