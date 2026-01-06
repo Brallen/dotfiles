@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-# I believe there are a few ways to do this:
-#
-#    3. My new favourite way: as @clot27 says, you can provide nixos-rebuild with a path to the config, allowing it to be entirely inside your dotfies, with zero bootstrapping of files required.
-#       `nixos-rebuild switch -I nixos-config=path/to/configuration.nix`
 
 # A rebuild script that commits on a successful build
 set -e

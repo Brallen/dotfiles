@@ -18,15 +18,12 @@
     stow
     stylua
     tmux
-    zsh
   ];
 
   programs = {
     zsh.enable = true;
-
-    neovim = {
-      enable = true;
-      defaultEditor = true;
-    };
   };
+
+  environment.variables.EDITOR = "nvim";
+  environment.variables.VISUAL = "nvim";
 }
