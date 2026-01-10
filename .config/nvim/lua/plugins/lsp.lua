@@ -145,6 +145,15 @@ return {
         return orig_util_open_floating_preview(contents, syntax, opts, ...)
       end
 
+      -- Close floating windows with Escape
+      vim.keymap.set('n', '<Esc>', function()
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+          if vim.api.nvim_win_get_config(win).relative == 'win' or vim.api.nvim_win_get_config(win).relative == 'editor' then
+            vim.api.nvim_win_close(win, false)
+          end
+        end
+      end, { desc = 'Close floating windows' })
+
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       local servers = {
