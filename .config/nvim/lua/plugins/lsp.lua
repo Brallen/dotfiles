@@ -28,6 +28,9 @@ return {
             vim.keymap.set(mode, keys, func, { buffer = event.buf, desc = 'LSP: ' .. desc })
           end
 
+          -- Show diagnostics in a floating window
+          map('gl', vim.diagnostic.open_float, 'Show [L]ine Diagnostics')
+
           -- Rename the variable under your cursor.
           map('gm', vim.lsp.buf.rename, '[R]ena[m]e')
 
@@ -119,7 +122,7 @@ return {
       -- Diagnostic Config
       vim.diagnostic.config {
         severity_sort = true,
-        float = { border = 'rounded', source = 'if_many' },
+        float = { border = 'rounded', source = 'if_many', max_width = 80, wrap = true },
         underline = { severity = vim.diagnostic.severity.ERROR },
         signs = vim.g.have_nerd_font and {
           text = {
@@ -129,20 +132,18 @@ return {
             [vim.diagnostic.severity.HINT] = '󰌶 ',
           },
         } or {},
-        virtual_text = {
-          source = 'if_many',
-          spacing = 2,
-          format = function(diagnostic)
-            local diagnostic_message = {
-              [vim.diagnostic.severity.ERROR] = diagnostic.message,
-              [vim.diagnostic.severity.WARN] = diagnostic.message,
-              [vim.diagnostic.severity.INFO] = diagnostic.message,
-              [vim.diagnostic.severity.HINT] = diagnostic.message,
-            }
-            return diagnostic_message[diagnostic.severity]
-          end,
-        },
+        virtual_text = false,
       }
+
+      local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
+      ---@diagnostic disable-next-line: duplicate-set-field
+      function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+        opts = opts or {}
+        opts.border = opts.border or 'rounded'
+        opts.max_width = opts.max_width or 80
+        opts.wrap = true
+        return orig_util_open_floating_preview(contents, syntax, opts, ...)
+      end
 
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
