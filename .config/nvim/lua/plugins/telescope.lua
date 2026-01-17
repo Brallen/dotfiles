@@ -63,13 +63,25 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-    vim.keymap.set('n', '<leader><leader>', builtin.find_files, { desc = '[ ] Search Files' })
-    vim.keymap.set('n', '<leader>/', builtin.live_grep, { desc = '[/] Search by Grep' })
+    vim.keymap.set('n', '<leader><leader>', function()
+      builtin.find_files {
+        hidden = true,
+        additional_args = function()
+          return { '--hidden', '--glob', '!.git/*' }
+        end,
+      }
+    end, { desc = '[ ] Search Files' })
+    vim.keymap.set('n', '<leader>/', function()
+      builtin.live_grep {
+        hidden = true,
+        additional_args = function()
+          return { '--hidden', '--glob', '!.git/*' }
+        end,
+      }
+    end, { desc = '[/] Search by Grep' })
     vim.keymap.set('n', '<leader>be', builtin.buffers, { desc = '[B]uffer [E]xplorer' })
     vim.keymap.set('n', '<leader>ge', builtin.git_status, { desc = '[G]it [E]xplorer' })
 
-    -- It's also possible to pass additional configuration options.
-    --  See `:help telescope.builtin.live_grep()` for information about particular keys
     vim.keymap.set('n', '<leader>s/', function()
       builtin.live_grep {
         grep_open_files = true,
