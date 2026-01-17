@@ -10,7 +10,6 @@
     # Include the results of the hardware scan.
     ./machines/ramp-rat/hardware-configuration.nix
     ./modules/desktop.nix
-    ./modules/languages.nix
     ./modules/tailscale.nix
     ./modules/terminal.nix
     ./modules/unfree.nix
