@@ -157,6 +157,12 @@ return {
       local capabilities = require('blink.cmp').get_lsp_capabilities()
 
       local servers = {
+        gleam = {
+          filetypes = { 'gleam' },
+        },
+        hls = {
+          filetypes = { 'haskell', 'lhaskell' },
+        },
         lua_ls = {
           filetypes = { 'lua' },
           settings = {
@@ -168,8 +174,8 @@ return {
             },
           },
         },
-        hls = {
-          filetypes = { 'haskell', 'lhaskell' },
+        nil_ls = {
+          filetypes = { 'nix' },
         },
       }
 
