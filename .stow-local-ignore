@@ -2,4 +2,3 @@ nix
 .git
 .gitignore
 .config/helix
-.config/zed
