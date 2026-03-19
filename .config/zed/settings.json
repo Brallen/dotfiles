@@ -1,96 +1,133 @@
 {
+  "diff_view_style": "unified",
+  "notification_panel": {
+    "button": true,
+  },
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry",
+      "default_mode": "plan",
+      "default_model": "opus",
+    },
+  },
+  "which_key": {
+    "enabled": true,
+  },
+  "base_keymap": "VSCode",
+  "git_panel": {
+    "tree_view": true,
+  },
+  "colorize_brackets": true,
+  "helix_mode": false,
   "edit_predictions": {
     "mode": "subtle",
     "copilot": {
       "proxy": null,
-      "proxy_no_verify": null
+      "proxy_no_verify": null,
     },
-    "enabled_in_text_threads": false
+    "enabled_in_text_threads": false,
   },
   "show_edit_predictions": true,
   "agent": {
-    "default_profile": "ask",
+    "tool_permissions": {
+      "default": "allow",
+    },
+    "notify_when_agent_waiting": "never",
+    "inline_assistant_model": {
+      "provider": "anthropic",
+      "model": "claude-opus-4-5-thinking-latest",
+    },
+    "default_profile": "write",
     "default_model": {
-      "provider": "copilot_chat",
-      "model": "claude-3.7-sonnet"
-    }
+      "provider": "openai",
+      "model": "gpt-4o",
+    },
   },
-  "theme": "Everforest Dark Hard",
+  "theme": "Everforest Dark Hard (material)",
   "buffer_font_family": "JetBrainsMono Nerd Font Mono",
   "buffer_font_size": 14,
   "tab_size": 2,
   "vim_mode": true,
-  "relative_line_numbers": true,
+  "relative_line_numbers": "enabled",
   "always_treat_brackets_as_autoclosed": false,
   "git": {
     "inline_blame": {
-      "enabled": false
-    }
+      "enabled": false,
+    },
   },
   "terminal": {
+    "cursor_shape": "bar",
     "dock": "right",
     "blinking": "on",
     "copy_on_select": true,
     "font_family": "JetBrainsMono Nerd Font Mono",
     "font_size": 14,
     "env": {
-      "GIT_EDITOR": "zed --wait"
-    }
+      "GIT_EDITOR": "zed --wait",
+    },
   },
   "lsp": {
     "typescript-language-server": {
       "settings": {
         "typescript": {
           "preferences": {
-            "importModuleSpecifier": "non-relative"
-          }
-        }
-      }
+            "importModuleSpecifier": "non-relative",
+          },
+        },
+      },
+    },
+    "oxlint": {
+      "initialization_options": {
+        "settings": {
+          "configPath": "./oxlint.config.mts",
+        },
+      },
     },
     "vtsls": {
       "settings": {
         "typescript": {
           "preferences": {
-            "importModuleSpecifier": "non-relative"
-          }
-        }
-      }
-    }
-    // "hls": {
-    //   "binary": {
-    //     "path": "static-ls",
-    //     "arguments": ["--experimentalFeatures"]
-    //   }
-    // }
+            "importModuleSpecifier": "non-relative",
+          },
+        },
+      },
+    },
+    "hls": {
+      "binary": {
+        "path": "./.bin/static-ls",
+        "arguments": ["--experimentalFeatures", "--fourmoluCommand=fourmolu"],
+      },
+      "initialization_options": {
+        "haskell": {
+          "formattingProvider": "fourmolu",
+        },
+      },
+    },
   },
-  "language_servers": [
-    "...",
-    "vtsls",
-    "!typescript-language-server",
-    "!eslint"
-  ],
+  "language_servers": ["...", "vtsls", "!typescript-language-server"],
   "languages": {
     "Haskell": {
-      "show_edit_predictions": true
+      "format_on_save": "off",
+      "show_edit_predictions": true,
     },
     "CSS": {
-      "show_edit_predictions": true
+      "show_edit_predictions": true,
     },
     "TypeScript": {
+      "code_actions_on_format": {
+        "source.organizeImports": true,
+      },
       "show_edit_predictions": true,
       "preferred_line_length": 85,
       // "soft_wrap": "preferred_line_length"
-      "code_actions_on_format": {
-        "source.organizeImports": true
-      }
     },
     "TSX": {
+      "code_actions_on_format": {
+        "source.organizeImports": true,
+      },
       "show_edit_predictions": true,
       "preferred_line_length": 85,
       // "soft_wrap": "preferred_line_length"
-      "code_actions_on_format": {
-        "source.organizeImports": true
-      }
-    }
-  }
+    },
+  },
 }
