@@ -14,10 +14,18 @@
       "/": "buffer_search::Deploy",
       "] h": "editor::GoToHunk",
       "[ h": "editor::GoToPreviousHunk",
-      "space g b": "git::Blame",
       "space b d": "pane::CloseActiveItem",
-      "g r": "editor::FindAllReferences"
-    }
+      "space b D": "pane::CloseOtherItems",
+      "space g g": "git_panel::ToggleFocus",
+      "space g b": "git::Blame",
+      "space g d": "git::Diff",
+      "space g D": "git::BranchDiff",
+      "g r": "editor::FindAllReferences",
+      "cmd-p": [
+        "task::Spawn",
+        { "task_name": "Television File Finder", "reveal_target": "center" },
+      ],
+    },
   },
   {
     "context": "VimControl && !menu && vim_mode != operator",
@@ -25,22 +33,23 @@
       "W": "vim::NextSubwordStart",
       "B": "vim::PreviousSubwordStart",
       "E": "vim::NextSubwordEnd",
-      "g E": "vim::PreviousSubwordEnd"
-    }
+      "g E": "vim::PreviousSubwordEnd",
+    },
   },
   {
     "context": "vim_mode == visual",
     "bindings": {
-      "shift-s": "vim::PushAddSurrounds"
-    }
+      "shift-s": "vim::PushAddSurrounds",
+    },
   },
   {
     "context": "Terminal",
     "bindings": {
       // Fake ctrl-h since terminal doesn't support the PaneInDirection
       // I have the terminal on the right always anyways
-      "ctrl-h": "terminal_panel::ToggleFocus"
-    }
+      "ctrl-h": "terminal_panel::ToggleFocus",
+      "shift-enter": ["terminal::SendText", "\u001b\r"],
+    },
   },
   {
     "context": "ProjectPanel && not_editing",
@@ -49,20 +58,20 @@
       "r": "project_panel::Rename",
       "shift-y": "workspace::CopyRelativePath",
       // Fake ctrl movement
-      "ctrl-l": "project_panel::ToggleFocus"
-    }
+      "ctrl-l": "project_panel::ToggleFocus",
+    },
   },
   {
     "context": "GitPanel",
     "bindings": {
       // Fake ctrl movement
-      "ctrl-l": "project_panel::ToggleFocus"
-    }
+      "ctrl-l": "project_panel::ToggleFocus",
+    },
   },
   {
     "context": "GitPanel && not_editing",
     "bindings": {
-      "space e": "pane::RevealInProjectPanel"
-    }
-  }
+      "space e": "project_panel::ToggleFocus",
+    },
+  },
 ]
