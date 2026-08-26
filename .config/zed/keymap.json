@@ -21,10 +21,7 @@
       "space g d": "git::Diff",
       "space g D": "git::BranchDiff",
       "g r": "editor::FindAllReferences",
-      "cmd-p": [
-        "task::Spawn",
-        { "task_name": "Television File Finder", "reveal_target": "center" },
-      ],
+      "g w": "vim::HelixJumpToWord",
     },
   },
   {
@@ -47,7 +44,6 @@
     "bindings": {
       // Fake ctrl-h since terminal doesn't support the PaneInDirection
       // I have the terminal on the right always anyways
-      "ctrl-h": "terminal_panel::ToggleFocus",
       "shift-enter": ["terminal::SendText", "\u001b\r"],
     },
   },
@@ -73,5 +69,31 @@
     "bindings": {
       "space e": "project_panel::ToggleFocus",
     },
+  },
+  {
+    "context": "ThreadsSidebar",
+    "bindings": {
+      "ctrl-l": "multi_workspace::FocusWorkspaceSidebar",
+    },
+  },
+  {
+    "context": "AgentPanel",
+    "bindings": {
+      "cmd-shift-a": "agent::AllowAlways",
+      "fn-k": "agent::FocusUp",
+      "ctrl-j": "agent::FocusDown",
+      "ctrl-h": "agent::ToggleFocus"
+    },
+  },
+  {
+    "bindings": {
+      "cmd-`": "multi_workspace::NextProject",
+    },
+  },
+  {
+    "context": "Terminal && !AgentPanel",
+    "bindings": {
+      "ctrl-h": "terminal_panel::ToggleFocus"
+    }
   },
 ]

@@ -1,13 +1,46 @@
 {
-  "diff_view_style": "unified",
-  "notification_panel": {
-    "button": true,
+  "toolbar": {
+    "agent_review": true,
   },
+  "cli_default_open_behavior": "existing_window",
+  "proxy": "",
+  "active_pane_modifiers": {
+    "inactive_opacity": 1.0,
+  },
+  "title_bar": {
+    "show_menus": false,
+  },
+  "collaboration_panel": {
+    "dock": "left",
+  },
+  "show_wrap_guides": true,
+  "tabs": {
+    "close_position": "right",
+    "git_status": true,
+  },
+  "debugger": {
+    "button": false,
+  },
+  "search": {
+    "button": false,
+  },
+  "outline_panel": {
+    "dock": "left",
+  },
+  "project_panel": {
+    "indent_guides": {
+      "show": "always",
+    },
+    "git_status_indicator": true,
+    "indent_size": 10.0,
+    "dock": "left",
+  },
+  "ui_font_size": 15.0,
+  "ui_font_family": "JetBrainsMono Nerd Font Mono",
+  "diff_view_style": "unified",
   "agent_servers": {
     "claude-acp": {
       "type": "registry",
-      "default_mode": "plan",
-      "default_model": "opus",
     },
   },
   "which_key": {
@@ -15,6 +48,7 @@
   },
   "base_keymap": "VSCode",
   "git_panel": {
+    "dock": "left",
     "tree_view": true,
   },
   "colorize_brackets": true,
@@ -25,10 +59,19 @@
       "proxy": null,
       "proxy_no_verify": null,
     },
-    "enabled_in_text_threads": false,
   },
   "show_edit_predictions": true,
   "agent": {
+    "flexible": false,
+    "sidebar_side": "left",
+    "dock": "right",
+    "favorite_models": [
+      {
+        "provider": "anthropic",
+        "model": "claude-opus-4-6-latest",
+        "enable_thinking": false,
+      },
+    ],
     "tool_permissions": {
       "default": "allow",
     },
@@ -39,8 +82,10 @@
     },
     "default_profile": "write",
     "default_model": {
-      "provider": "openai",
-      "model": "gpt-4o",
+      "effort": "high",
+      "enable_thinking": true,
+      "provider": "anthropic",
+      "model": "claude-opus-4-6-latest",
     },
   },
   "theme": "Everforest Dark Hard (material)",
@@ -56,6 +101,7 @@
     },
   },
   "terminal": {
+    "flexible": false,
     "cursor_shape": "bar",
     "dock": "right",
     "blinking": "on",
@@ -80,9 +126,30 @@
       "initialization_options": {
         "settings": {
           "configPath": "./oxlint.config.mts",
+          "disableNestedConfig": false,
+          "fixKind": "safe_fix",
+          "run": "onSave",
+          "unusedDisableDirectives": "deny",
         },
       },
     },
+    "oxfmt": {
+      "initialization_options": {
+        "settings": {
+          "fmt.configPath": "./oxfmt.config.mts",
+          "run": "onSave",
+        },
+      },
+    },
+    // "tsgo": {
+    //   "settings": {
+    //     "typescript": {
+    //       "preferences": {
+    //         "importModuleSpecifier": "non-relative",
+    //       },
+    //     },
+    //   },
+    // },
     "vtsls": {
       "settings": {
         "typescript": {
@@ -95,7 +162,13 @@
     "hls": {
       "binary": {
         "path": "./.bin/static-ls",
-        "arguments": ["--experimentalFeatures", "--fourmoluCommand=fourmolu"],
+        // Zed does not respawn an exited language server, so static-ls's
+        // default 120-minute self-restart leaves it permanently dead.
+        "arguments": [
+          "--experimentalFeatures",
+          "--fourmoluCommand=fourmolu",
+          "--restartInterval=0",
+        ],
       },
       "initialization_options": {
         "haskell": {
@@ -104,30 +177,56 @@
       },
     },
   },
-  "language_servers": ["...", "vtsls", "!typescript-language-server"],
+  "language_servers": ["vtsls", "!typescript-language-server","..."],
   "languages": {
     "Haskell": {
       "format_on_save": "off",
       "show_edit_predictions": true,
     },
     "CSS": {
+      "prettier": {
+        "allowed": false,
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt",
+          },
+        },
+      ],
       "show_edit_predictions": true,
     },
     "TypeScript": {
+      "prettier": {
+        "allowed": false,
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt",
+          },
+        },
+      ],
       "code_actions_on_format": {
         "source.organizeImports": true,
       },
       "show_edit_predictions": true,
-      "preferred_line_length": 85,
-      // "soft_wrap": "preferred_line_length"
     },
     "TSX": {
+      "prettier": {
+        "allowed": false,
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "oxfmt",
+          },
+        },
+      ],
       "code_actions_on_format": {
         "source.organizeImports": true,
       },
       "show_edit_predictions": true,
-      "preferred_line_length": 85,
-      // "soft_wrap": "preferred_line_length"
     },
   },
 }
