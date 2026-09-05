@@ -10,6 +10,7 @@
     fzf
     unstable.ghostty
     git
+    inotify-tools # for neovim file watching
     lazygit
     lua-language-server
     unstable.neovim

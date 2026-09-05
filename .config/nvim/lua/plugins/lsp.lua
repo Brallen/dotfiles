@@ -155,8 +155,23 @@ return {
       end, { desc = 'Close floating windows' })
 
       local capabilities = require('blink.cmp').get_lsp_capabilities()
+      capabilities = vim.tbl_deep_extend('force', capabilities, {
+        workspace = {
+          didChangeWatchedFiles = {
+            dynamicRegistration = true,
+          },
+        },
+      })
 
       local servers = {
+        astro = {
+          filetypes = { 'astro' },
+          init_options = {
+            typescript = {
+              tsdk = vim.env.TS_SDK_PATH,
+            },
+          },
+        },
         gleam = {
           filetypes = { 'gleam' },
         },
@@ -177,11 +192,18 @@ return {
         nil_ls = {
           filetypes = { 'nix' },
         },
+        ts_ls = {
+          filetypes = { 'javascript', 'javascriptreact', 'javascript.jsx', 'typescript', 'typescriptreact', 'typescript.tsx' },
+        },
       }
 
       for server_name, server_config in pairs(servers) do
         local filetypes = server_config.filetypes or {}
         server_config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server_config.capabilities or {})
+        flags = vim.tbl_deep_extend('force', {
+          debounce_text_changes = 0,
+          allow_incremental_sync = false,
+        }, server_config.flags or {})
 
         -- Register the LSP config
         vim.lsp.config[server_name] = server_config
@@ -227,14 +249,20 @@ return {
           return {
             timeout_ms = 500,
             lsp_format = 'fallback',
+            async = false,
           }
         end
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
+        astro = { 'eslint_d', 'prettier' },
+        javascript = { 'eslint_d', 'prettier' },
+        javascriptreact = { 'eslint_d', 'prettier' },
+        typescript = { 'eslint_d', 'prettier' },
+        typescriptreact = { 'eslint_d', 'prettier' },
+        css = { 'prettier' },
+        html = { 'prettier' },
+        json = { 'prettier' },
         -- You can use 'stop_after_first' to run the first available formatter from the list
         -- javascript = { "prettierd", "prettier", stop_after_first = true },
       },
@@ -299,7 +327,7 @@ return {
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'default',
+        preset = 'enter',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps

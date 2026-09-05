@@ -4,17 +4,21 @@ return { -- Highlight, edit, and navigate code
   main = 'nvim-treesitter', -- Sets main module to use for opts
   opts = {
     ensure_installed = {
+      'astro',
       'bash',
       'c',
       'diff',
       'gleam',
       'haskell',
       'html',
+      'javascript',
       'lua',
       'luadoc',
       'markdown',
       'markdown_inline',
       'query',
+      'tsx',
+      'typescript',
       'vim',
       'vimdoc',
     },
