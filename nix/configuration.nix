@@ -106,23 +106,13 @@
     gc = {
       automatic = true;
       dates = "weekly";
-      options = "-d";
+      options = "--delete-older-than 14d";
       persistent = true;
     };
 
     settings = {
       auto-optimise-store = true;
       experimental-features = ["nix-command" "flakes"];
-    };
-  };
-
-  nixpkgs = {
-    config = {
-      packageOverrides = pkgs: {
-        unstable = pkgs.unstable {
-          config = config.nixpkgs.config;
-        };
-      };
     };
   };
 

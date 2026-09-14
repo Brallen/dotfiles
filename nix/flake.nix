@@ -12,16 +12,21 @@
     unstable,
     ...
   } @ inputs: let
-    unstableOverlay = final: prev: {unstable = unstable.legacyPackages.${prev.system};};
-    # Overlays-module makes "pkgs.unstable" available in configuration.nix
-    unstableModule = {
-      config,
-      pkgs,
-      ...
-    }: {nixpkgs.overlays = [unstableOverlay];};
+    system = "x86_64-linux";
+
+    # Re-import unstable with the stable tree's config so allowUnfree applies to both
+    unstableOverlay = final: prev: {
+      unstable = import unstable {
+        system = prev.stdenv.hostPlatform.system;
+        config = prev.config;
+      };
+    };
+    unstableModule = {nixpkgs.overlays = [unstableOverlay];};
   in {
+    formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
+
     nixosConfigurations.ramp-rat = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+      inherit system;
       modules = [
         unstableModule
         ./configuration.nix

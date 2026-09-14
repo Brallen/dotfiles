@@ -8,7 +8,7 @@ pushd ~/.dotfiles/nix/
 
 echo "NixOS Updating..."
 
-sudo nix flake update
+nix flake update
 
 # Shows your changes
 git diff -U0 '*.nix'

@@ -1,11 +1,6 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
+{pkgs, ...}: {
   environment.systemPackages = with pkgs; [
     instawow
-    tailscale
     vlc
     (unstable.wineWow64Packages.full.override {
       wineRelease = "staging";
