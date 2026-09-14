@@ -64,19 +64,11 @@ return { -- Fuzzy Finder (files, lsp, etc)
     vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
     vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
     vim.keymap.set('n', '<leader><leader>', function()
-      builtin.find_files {
-        hidden = true,
-        additional_args = function()
-          return { '--hidden', '--glob', '!.git/*' }
-        end,
-      }
+      builtin.find_files { hidden = true }
     end, { desc = '[ ] Search Files' })
     vim.keymap.set('n', '<leader>/', function()
       builtin.live_grep {
-        hidden = true,
-        additional_args = function()
-          return { '--hidden', '--glob', '!.git/*' }
-        end,
+        additional_args = { '--hidden', '--glob', '!.git/*' },
       }
     end, { desc = '[/] Search by Grep' })
     vim.keymap.set('n', '<leader>be', builtin.buffers, { desc = '[B]uffer [E]xplorer' })

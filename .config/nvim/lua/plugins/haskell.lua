@@ -1,1 +1,1 @@
-return { 'neovimhaskell/haskell-vim' }
+return { 'neovimhaskell/haskell-vim', ft = { 'haskell', 'lhaskell' } }

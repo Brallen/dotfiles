@@ -22,8 +22,8 @@ return {
       end,
       desc = 'Explorer NeoTree (cwd)',
     },
-    { '<leader>e', '<leader>fe', desc = 'Explorer NeoTree (Root Dir)', remap = true },
-    { '<leader>E', '<leader>fE', desc = 'Explorer NeoTree (cwd)', remap = true },
+    { '<leader>e', '<leader>fe', desc = 'Explorer NeoTree (cwd)', remap = true },
+    { '<leader>E', '<leader>fE', desc = 'Explorer NeoTree (Root Dir)', remap = true },
   },
   config = function(_, opts)
     require('neo-tree').setup(opts)
@@ -41,7 +41,7 @@ return {
       group = vim.api.nvim_create_augroup('NeoTreeClose', { clear = true }),
       pattern = '*',
       callback = function()
-        local layout = vim.api.nvim_call_function('winlayout', {})
+        local layout = vim.fn.winlayout()
         if layout[1] == 'leaf' and vim.bo[vim.api.nvim_win_get_buf(layout[2])].filetype == 'neo-tree' and layout[3] == nil then
           vim.cmd 'quit'
         end

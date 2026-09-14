@@ -56,8 +56,15 @@ vim.o.scrolloff = 10
 vim.o.confirm = true
 
 -- [[ Basic Keymaps ]]
--- Clear highlights on search when pressing <Esc> in normal mode
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+-- <Esc> in normal mode clears search highlights and dismisses any floating windows
+vim.keymap.set('n', '<Esc>', function()
+  vim.cmd.nohlsearch()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if vim.api.nvim_win_get_config(win).relative ~= '' then
+      pcall(vim.api.nvim_win_close, win, false)
+    end
+  end
+end, { desc = 'Clear search highlight and close floats' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
