@@ -1,0 +1,100 @@
+# --- TypeScript / JavaScript --------------------------------------------------
+# tsgo (the native TypeScript 7 server) handles everything except formatting,
+# oxlint adds lint diagnostics and safe-fix code actions, oxfmt owns formatting.
+#
+# tsgo is resolved from the repo's node_modules rather than a global install so
+# editor diagnostics match the project's pinned compiler. Helix spawns servers
+# with the workspace root as cwd, so the relative exec resolves in worktrees too.
+# vtsls was dropped: its bundled TypeScript 5.9 could not load a TS 7 project.
+
+[language-server.tsgo]
+command = "sh"
+args = [
+  "-c",
+  'exec ./node_modules/@typescript/typescript-darwin-arm64/lib/tsc --lsp --stdio',
+]
+
+[language-server.oxlint]
+command = "oxlint"
+args = ["--lsp"]
+config.settings.configPath = "./oxlint.config.mts"
+config.settings.disableNestedConfig = false
+config.settings.fixKind = "safe_fix"
+config.settings.run = "onSave"
+config.settings.unusedDisableDirectives = "deny"
+
+[language-server.oxfmt]
+command = "oxfmt"
+args = ["--lsp"]
+config.settings."fmt.configPath" = "./oxfmt.config.mts"
+config.settings.run = "onSave"
+
+[[language]]
+name = "typescript"
+language-servers = [{ name = "tsgo", except-features = ["format"] }, "oxlint", "oxfmt"]
+auto-format = true
+
+[[language]]
+name = "tsx"
+language-servers = [{ name = "tsgo", except-features = ["format"] }, "oxlint", "oxfmt"]
+auto-format = true
+
+[[language]]
+name = "javascript"
+language-servers = [{ name = "tsgo", except-features = ["format"] }, "oxlint", "oxfmt"]
+auto-format = true
+
+[[language]]
+name = "jsx"
+language-servers = [{ name = "tsgo", except-features = ["format"] }, "oxlint", "oxfmt"]
+auto-format = true
+
+[[language]]
+name = "css"
+language-servers = [{ name = "vscode-css-language-server", except-features = ["format"] }, "oxfmt"]
+auto-format = true
+
+# --- Haskell ------------------------------------------------------------------
+# static-ls lives in the repo's gitignored .bin directory. Helix spawns servers
+# with the workspace root as cwd, so the relative exec resolves in worktrees too.
+# Helix never respawns an exited server, so static-ls's periodic self-restart is
+# disabled.
+
+[language-server.static-ls]
+command = "sh"
+args = [
+  "-c",
+  'exec ./.bin/static-ls "$@"',
+  "static-ls",
+  "--experimentalFeatures",
+  "--fourmoluCommand=fourmolu",
+  "--restartInterval=0",
+]
+config.haskell.formattingProvider = "fourmolu"
+
+[[language]]
+name = "haskell"
+language-servers = ["static-ls"]
+auto-format = false
+
+# --- Everything else -----------------------------------------------------------
+
+[[language]]
+name = "lua"
+formatter = { command = "stylua", args = ["-"] }
+auto-format = true
+
+[[language]]
+name = "json"
+formatter = { command = "prettier", args = ["--parser", "json"] }
+auto-format = true
+
+[[language]]
+name = "html"
+formatter = { command = "prettier", args = ["--parser", "html"] }
+auto-format = true
+
+[[language]]
+name = "astro"
+formatter = { command = "prettier", args = ["--parser", "astro"] }
+auto-format = true

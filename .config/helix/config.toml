@@ -1,0 +1,65 @@
+theme = "everforest_dark_hard"
+
+[editor]
+line-number = "relative"
+cursorline = true
+scrolloff = 10
+bufferline = "multiple"
+true-color = true
+color-modes = true
+end-of-line-diagnostics = "disable"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.soft-wrap]
+enable = true
+max-indent-retain = 40
+
+[editor.whitespace.render]
+tab = "all"
+nbsp = "all"
+
+[editor.whitespace.characters]
+tab = ">"
+tabpad = " "
+nbsp = "+"
+
+[editor.indent-guides]
+render = true
+character = "|"
+skip-levels = 1
+
+# Inline diagnostics stay hidden until toggled with Space-l so long Haskell
+# messages never take over the buffer uninvited. The gutter still marks lines.
+[editor.inline-diagnostics]
+cursor-line = "disable"
+other-lines = "disable"
+max-wrap = 120
+max-diagnostics = 10
+
+[editor.lsp]
+display-messages = true
+display-progress-messages = true
+display-inlay-hints = false
+
+[editor.statusline]
+left = ["mode", "spinner", "version-control", "file-name", "read-only-indicator", "file-modification-indicator"]
+center = []
+right = ["diagnostics", "selections", "register", "file-type", "position"]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[keys.normal]
+C-h = "jump_view_left"
+C-j = "jump_view_down"
+C-k = "jump_view_up"
+C-l = "jump_view_right"
+H = "goto_previous_buffer"
+L = "goto_next_buffer"
+
+[keys.normal.space]
+l = ":toggle inline-diagnostics.cursor-line hint disable"
