@@ -4,6 +4,7 @@
     bat
     fd
     fzf
+    gcc # tree-sitter CLI needs a C compiler to build parsers
     unstable.ghostty
     git
     inotify-tools # for neovim file watching
@@ -15,6 +16,7 @@
     stow
     stylua
     tmux
+    tree-sitter # nvim-treesitter (main branch) compiles parsers with the CLI
   ];
 
   programs = {
