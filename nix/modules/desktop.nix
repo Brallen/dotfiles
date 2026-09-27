@@ -3,7 +3,7 @@
   lib,
   ...
 }: let
-  wine-staging = unstable.wineWow64Packages.full.override {
+  wine-staging = pkgs.unstable.wineWow64Packages.full.override {
     wineRelease = "staging";
     mingwSupport = true;
   };
