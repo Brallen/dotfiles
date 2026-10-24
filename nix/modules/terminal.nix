@@ -7,6 +7,7 @@
     gcc # tree-sitter CLI needs a C compiler to build parsers
     unstable.ghostty
     git
+    unstable.helix
     inotify-tools # for neovim file watching
     lazygit
     lua-language-server
