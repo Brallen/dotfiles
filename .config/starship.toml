@@ -8,9 +8,9 @@ $character"""
 [directory]
 disabled = true
 
-# Inside a repo: always parent/repo, then the two deepest folders, with ..
+# Inside a repo: always the repo name, then the deepest folder, with ..
 # standing in for anything skipped between them.
-# Outside a repo: the last two components, or ~ at home.
+# Outside a repo: the last component, or ~ at home.
 [custom.directory]
 description = "Repo-aware working directory"
 when = true
@@ -23,12 +23,10 @@ if info=$(git rev-parse --show-toplevel --show-prefix 2>/dev/null); then
   prefix=${info#"$root"}
   prefix=${prefix#$'\n'}
   prefix=${prefix%/}
-  parent=${root%/*}
-  [ "$parent" = "$HOME" ] && parent='~'
-  base="${parent##*/}/${root##*/}"
+  base=${root##*/}
   case $prefix in
     '') printf '%s' "$base" ;;
-    */*/*) rest=${prefix%/*}; printf '%s/../%s/%s' "$base" "${rest##*/}" "${prefix##*/}" ;;
+    */*) printf '%s/../%s' "$base" "${prefix##*/}" ;;
     *) printf '%s/%s' "$base" "$prefix" ;;
   esac
   exit
@@ -41,7 +39,8 @@ case $PWD in
 esac
 
 case $p in
-  */*) rest=${p%/*}; printf '%s/%s' "${rest##*/}" "${p##*/}" ;;
+  /) printf '/' ;;
+  */*) printf '%s' "${p##*/}" ;;
   *) printf '%s' "$p" ;;
 esac
 '''
