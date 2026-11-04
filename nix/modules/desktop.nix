@@ -1,8 +1,4 @@
-{
-  pkgs,
-  lib,
-  ...
-}: let
+{pkgs, ...}: let
   wine-staging = pkgs.unstable.wineWow64Packages.full.override {
     wineRelease = "staging";
     mingwSupport = true;

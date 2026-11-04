@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Usage: claude-state <idle|working|blocked|done|clear> [pane-id]
+# Called from Claude Code hooks (pane comes from $TMUX_PANE) and from the
+# tmux pane-focus-in hook (pane passed explicitly).
+
+state=$1
+pane=${2:-$TMUX_PANE}
+[ -n "$pane" ] || exit 0
+
+if [ "$state" = clear ]; then
+  tmux set -pu -t "$pane" @claude_state \; set -pu -t "$pane" @claude_color 2>/dev/null
+else
+  case $state in
+    idle) default='#9DA9A0' ;;
+    working) default='#FFC94D' ;;
+    blocked) default='#FF5F5F' ;;
+    done) default='#B8E05A' ;;
+    *) echo "unknown state: $state" >&2; exit 1 ;;
+  esac
+  # The color is stored on the pane, rather than chosen in the status format,
+  # because hex colors inside a format conditional get re-expanded and "#D..."
+  # collides with tmux's #D (pane id) alias.
+  color=$(tmux show -gqv "@claude_color_$state")
+  tmux set -p -t "$pane" @claude_state "$state" \; set -p -t "$pane" @claude_color "${color:-$default}" 2>/dev/null
+fi
+
+tmux list-clients -F '#{client_name}' 2>/dev/null | while read -r client; do
+  tmux refresh-client -S -t "$client"
+done
+exit 0

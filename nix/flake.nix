@@ -26,7 +26,7 @@
     formatter.${system} = nixpkgs.legacyPackages.${system}.alejandra;
 
     nixosConfigurations.ramp-rat = nixpkgs.lib.nixosSystem {
-      inherit system;
+      specialArgs = {inherit inputs;};
       modules = [
         unstableModule
         ./configuration.nix

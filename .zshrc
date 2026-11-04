@@ -1,23 +1,7 @@
-
-export EDITOR=nvim
-
 alias ls='ls -G'
 alias vim=nvim
 alias nv=nvim
 eval "$(starship init zsh)"
-
-export PATH="$PATH:/opt/nvim-linux64/bin"
-
-# Call into the NixOS rebuild switch faster
-nrs() {
-  ~/.dotfiles/nix/nixos-rebuild.sh
-}
-
-# Call into the NixOS update with flake faster
-
-nfu() {
-  ~/.dotfiles/nix/nixos-flake-update.sh
-}
 
 # Open the nix shell with zsh instead of bash
 nd() {

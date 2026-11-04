@@ -4,5 +4,9 @@
   ];
 
   # Enable Tailscale VPN
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    # Lets tailscale-systray manage the connection without sudo
+    extraSetFlags = ["--operator=bart"];
+  };
 }
