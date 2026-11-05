@@ -8,6 +8,7 @@
     unstable.ghostty
     unstable.helix
     inotify-tools # for neovim file watching
+    jq # ~/.claude/sync-settings.sh and the Claude status line parse JSON
     lazygit
     lua-language-server
     ripgrep
